@@ -1,0 +1,39 @@
+def tanh(x):
+    e_pos = 2.718281828459045 ** x   
+    e_neg = 2.718281828459045 ** -x  
+    return (e_pos - e_neg) / (e_pos + e_neg)
+
+def tanh_derivative(x):
+    return 1 - tanh(x) ** 2
+
+i1, i2 = 0.05, 0.10
+
+b1_h, b2_h = 0.35, 0.35  
+b1_o, b2_o = 0.60, 0.60  
+
+weights = {
+    "w1": 0.15, "w2": 0.20, "w3": 0.25, "w4": 0.30, 
+    "w5": 0.40, "w6": 0.45, "w7": 0.50, "w8": 0.55   
+}
+
+h1_input = i1 * weights["w1"] + i2 * weights["w3"] + b1_h
+h2_input = i1 * weights["w2"] + i2 * weights["w4"] + b2_h
+
+h1_output = tanh(h1_input)
+h2_output = tanh(h2_input)
+
+o1_input = h1_output * weights["w5"] + h2_output * weights["w7"] + b1_o
+o2_input = h1_output * weights["w6"] + h2_output * weights["w8"] + b2_o
+
+o1_output = tanh(o1_input)
+o2_output = tanh(o2_input)
+
+print("\n🔹 Weights")
+for k, v in weights.items():
+    print(f"  {k}: {v}")
+
+print("\n🔹 Hidden layer:")
+print(f"  h1 = {h1_output:.5f}, h2 = {h2_output:.5f}")
+
+print("\n🔹 Output layer :")
+print(f"  o1 = {o1_output:.5f}, o2 = {o2_output:.5f}")
